@@ -25,6 +25,9 @@ public class UsersService {
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    public JwtService jwtService;
+
     public Users signup(Users users){
         String userId = UUID.randomUUID().toString();
         if(!this.userRepository.existsById(userId)){
@@ -43,6 +46,9 @@ public class UsersService {
             if(authentication.isAuthenticated()){
                 LoginResponse loginResponse = new LoginResponse();
                 loginResponse.setUsers(users);
+                String jwtToken = this.jwtService.getJwtToken(users);
+                if(!jwtToken.isEmpty())
+                    loginResponse.setJwtToken(jwtToken);
                 return loginResponse;
             }
         }

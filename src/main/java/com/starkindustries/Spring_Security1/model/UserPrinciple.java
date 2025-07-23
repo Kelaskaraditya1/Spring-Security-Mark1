@@ -33,7 +33,7 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.users.getPassword();
+        return this.users.getUsername();
     }
 
     @Override

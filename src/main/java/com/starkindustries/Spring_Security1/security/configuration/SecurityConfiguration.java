@@ -1,5 +1,6 @@
 package com.starkindustries.Spring_Security1.security.configuration;
 
+import com.starkindustries.Spring_Security1.filter.JwtAuthenticationFilter;
 import com.starkindustries.Spring_Security1.service.MyUserDetailsService;
 import io.netty.util.internal.NoOpTypeParameterMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class SecurityConfiguration {
 
     @Autowired
     public MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    public JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public BCryptPasswordEncoder getBcryptPasswordEncoder(){
@@ -48,6 +53,7 @@ public class SecurityConfiguration {
                                 .authenticated())
                 .sessionManagement(session->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }

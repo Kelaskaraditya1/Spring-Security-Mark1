@@ -47,7 +47,7 @@ public class SecurityConfiguration {
                 .cors(cors->cors.disable())
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(request->
-                        request.requestMatchers("/auth/login/**","/auth/signup/**")
+                        request.requestMatchers("/auth/login/**","/auth/signup/**","/auth/validate/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())

@@ -19,4 +19,7 @@ public class Keys {
     public static final String SENDER_ID=System.getenv("SENDER_ID");
     public static final String OTP="OTP";
     public static final String OTP_TIME="OTP_TIME";
+    public static final String HMAC_SHA_256="HmacSHA256";
+
+
 }

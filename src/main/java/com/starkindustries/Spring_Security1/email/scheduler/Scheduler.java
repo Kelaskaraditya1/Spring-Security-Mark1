@@ -11,9 +11,9 @@ import java.security.Key;
 public class Scheduler {
 
     @Scheduled(fixedRate = 3000000)
-    public void removeOtp(HttpSession httpSession){
-        httpSession.removeAttribute(Keys.OTP);
-        httpSession.removeAttribute(Keys.OTP_TIME);
+    public void removeOtp(){
+//        httpSession.removeAttribute(Keys.OTP);
+//        httpSession.removeAttribute(Keys.OTP_TIME);
     }
 
 }

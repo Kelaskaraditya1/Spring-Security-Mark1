@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.util.*;
 import java.util.function.Function;
@@ -17,11 +18,22 @@ import java.util.function.Function;
 @Slf4j
 public class JwtService {
 
-    public String secreteKey = null;
+    public String secreteKey = "";
 
-    public String getSecreteKey(){
-        secreteKey = Keys.SECRETE_KEY;
-        return secreteKey;
+//    public String getSecreteKey(){
+//        secreteKey = Keys.SECRETE_KEY;
+//        return secreteKey;
+//    }
+
+    public JwtService(){
+        try{
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(Keys.HMAC_SHA_256);
+            SecretKey sk = keyGenerator.generateKey();
+            secreteKey = Base64.getEncoder().encodeToString(sk.getEncoded());
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("secret key error: {}",e.getLocalizedMessage());
+        }
     }
 
     public String getJwtToken(Users users){
@@ -40,7 +52,6 @@ public class JwtService {
     }
 
     public SecretKey generateKey(){
-        getSecreteKey();
         byte[] data = Decoders.BASE64.decode(secreteKey);
         return io.jsonwebtoken.security.Keys.hmacShaKeyFor(data);
     }

@@ -1,6 +1,6 @@
-package com.starkindustries.Spring_Security1.dto.response;
+package com.starkindustries.Spring_Security1.auth.dto.response;
 
-import com.starkindustries.Spring_Security1.model.Users;
+import com.starkindustries.Spring_Security1.auth.model.Users;
 import lombok.*;
 
 @Data

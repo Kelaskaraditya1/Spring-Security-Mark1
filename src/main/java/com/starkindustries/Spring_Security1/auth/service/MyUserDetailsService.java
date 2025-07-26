@@ -1,8 +1,8 @@
-package com.starkindustries.Spring_Security1.service;
+package com.starkindustries.Spring_Security1.auth.service;
 
-import com.starkindustries.Spring_Security1.model.UserPrinciple;
-import com.starkindustries.Spring_Security1.model.Users;
-import com.starkindustries.Spring_Security1.repository.UserRepository;
+import com.starkindustries.Spring_Security1.auth.model.UserPrinciple;
+import com.starkindustries.Spring_Security1.auth.model.Users;
+import com.starkindustries.Spring_Security1.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

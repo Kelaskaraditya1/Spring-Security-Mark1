@@ -1,13 +1,11 @@
-package com.starkindustries.Spring_Security1.model;
+package com.starkindustries.Spring_Security1.auth.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class UserPrinciple implements UserDetails {
 

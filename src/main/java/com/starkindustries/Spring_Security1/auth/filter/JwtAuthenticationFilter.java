@@ -1,19 +1,16 @@
-package com.starkindustries.Spring_Security1.filter;
+package com.starkindustries.Spring_Security1.auth.filter;
 
-import com.starkindustries.Spring_Security1.service.JwtService;
-import com.starkindustries.Spring_Security1.service.MyUserDetailsService;
+import com.starkindustries.Spring_Security1.auth.service.JwtService;
+import com.starkindustries.Spring_Security1.auth.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -47,14 +44,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        username = jwtService.extractUserName(jwt);
+        username = this.jwtService.extractUserName(jwt);
 
         log.info("JWT extracted: {}", jwt);
         log.info("Extracted username: {}", username);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
-            boolean isValid = jwtService.isTokenValid(jwt, userDetails);
+            boolean isValid = this.jwtService.isTokenValid(jwt, userDetails);
 
             log.info("UserDetails found: {}", userDetails.getUsername());
             log.info("Token validity: {}", isValid);

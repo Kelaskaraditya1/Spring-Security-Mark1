@@ -1,11 +1,10 @@
-package com.starkindustries.Spring_Security1.service;
+package com.starkindustries.Spring_Security1.auth.service;
 
 import com.starkindustries.Spring_Security1.keys.Keys;
-import com.starkindustries.Spring_Security1.model.Users;
+import com.starkindustries.Spring_Security1.auth.model.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
-import jakarta.websocket.Decoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

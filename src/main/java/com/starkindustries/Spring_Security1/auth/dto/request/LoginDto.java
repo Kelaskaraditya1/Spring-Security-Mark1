@@ -1,4 +1,4 @@
-package com.starkindustries.Spring_Security1.dto.request;
+package com.starkindustries.Spring_Security1.auth.dto.request;
 
 import lombok.*;
 

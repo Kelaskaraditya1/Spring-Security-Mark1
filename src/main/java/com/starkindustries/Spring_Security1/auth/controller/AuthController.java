@@ -1,24 +1,23 @@
-package com.starkindustries.Spring_Security1.controller;
+package com.starkindustries.Spring_Security1.auth.controller;
 
-import com.starkindustries.Spring_Security1.dto.request.LoginDto;
-import com.starkindustries.Spring_Security1.dto.response.LoginResponse;
-import com.starkindustries.Spring_Security1.model.UserPrinciple;
-import com.starkindustries.Spring_Security1.model.Users;
-import com.starkindustries.Spring_Security1.repository.UserRepository;
-import com.starkindustries.Spring_Security1.service.EmailService;
-import com.starkindustries.Spring_Security1.service.JwtService;
-import com.starkindustries.Spring_Security1.service.UsersService;
+import com.starkindustries.Spring_Security1.auth.dto.request.LoginDto;
+import com.starkindustries.Spring_Security1.auth.dto.request.UpdatePasswordDto;
+import com.starkindustries.Spring_Security1.auth.dto.response.LoginResponse;
+import com.starkindustries.Spring_Security1.auth.model.UserPrinciple;
+import com.starkindustries.Spring_Security1.auth.model.Users;
+import com.starkindustries.Spring_Security1.auth.repository.UserRepository;
+import com.starkindustries.Spring_Security1.email.service.EmailService;
+import com.starkindustries.Spring_Security1.auth.service.JwtService;
+import com.starkindustries.Spring_Security1.auth.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.support.HttpAccessor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/auth")
@@ -100,16 +99,31 @@ public class AuthController {
 
     }
 
-    @PostMapping("/sent-email/{email}")
-    public ResponseEntity<?> sentEmail(@PathVariable("email") String email){
+    @GetMapping("/get-user/{userId}")
+    public ResponseEntity<?> getUSer(@PathVariable("userId") String userId){
+        Users users = this.usersService.getUserById(userId);
+        if(users!=null)
+            return ResponseEntity.status(HttpStatus.OK).body(users);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist!!");
+    }
 
-        Random random = new Random();
-        int otp = 1000+random.nextInt(9000);
+    @GetMapping("/get-users")
+    public ResponseEntity<?> getUsers(){
+        List<Users> usersList = this.usersService.getUSers();
+        if(!usersList.isEmpty())
+            return ResponseEntity.status(HttpStatus.OK).body(usersList);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Enter users first!!");
+    }
 
-        if(this.emailService.sendEmail(email,otp))
-            return ResponseEntity.status(HttpStatus.OK).body("Email sent successfully!!");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email!!");
+    @PutMapping("/update-password")
+    public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto){
+
+        Users users = this.usersService.updatePassword(updatePasswordDto);
+        if(users!=null)
+                return ResponseEntity.status(HttpStatus.OK).body(users);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Either Current password or User-Id is wrong!!");
 
     }
+    
 
 }

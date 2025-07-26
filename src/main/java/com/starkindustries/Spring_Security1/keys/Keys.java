@@ -15,4 +15,8 @@ public class Keys {
     public static final String SOCKET_FACTORY_CLASS="mail.smtp.socketFactory.class";
     public static final String SOCKET_FACTORY_FALLBACK="mail.smtp.socketFactory.fallback";
     public static final String APP_PASSWORD=System.getenv("APP_PASSWORD");
+    public static final String SMS_API_KEY=System.getenv("SMS_API_KEY");
+    public static final String SENDER_ID=System.getenv("SENDER_ID");
+    public static final String OTP="OTP";
+    public static final String OTP_TIME="OTP_TIME";
 }

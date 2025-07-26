@@ -1,4 +1,4 @@
-package com.starkindustries.Spring_Security1.model;
+package com.starkindustries.Spring_Security1.auth.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
